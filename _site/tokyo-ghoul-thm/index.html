@@ -1,0 +1,627 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Tokyo Ghoul - Tryhackme (Español) - x0pr4nt3s.io</title>
+<meta name="description" content="Tokyo ghoul es un maquina interesante con posibles rabbit holes y que requiere de un pequeño conocimiento de criptografia o codigo morse y un poco de conocimiento de jails.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="x0pr4nt3s.io">
+<meta property="og:title" content="Tokyo Ghoul - Tryhackme (Español)">
+<meta property="og:url" content="http://localhost:4000/tokyo-ghoul-thm/">
+
+
+  <meta property="og:description" content="Tokyo ghoul es un maquina interesante con posibles rabbit holes y que requiere de un pequeño conocimiento de criptografia o codigo morse y un poco de conocimiento de jails.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/tokyo-ghoul-thm/tokyo_logo.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-05-10T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/tokyo-ghoul-thm/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "x0pr4nt3s",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="x0pr4nt3s.io Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo_name.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Tokyo Ghoul - Tryhackme (Español)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/vagabond.jpg" alt="x0pr4nt3s" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">x0pr4nt3s</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Red Team member<br>Computer Scientist<br>CEH Master/ eJPT
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Lima, Peru</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:cristhopermma@gmail.com">
+            <meta itemprop="email" content="cristhopermma@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/cristhoper-heredia" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/x0pr4nt3s" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tokyo Ghoul - Tryhackme (Español)">
+    <meta itemprop="description" content="Tokyo ghoul es un maquina interesante con posibles rabbit holes y que requiere de un pequeño conocimiento de criptografia o codigo morse y un poco de conocimiento de jails.">
+    <meta itemprop="datePublished" content="May 10, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Tokyo Ghoul - Tryhackme (Español)
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-05-10T00:00:00-04:00">May 10, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p>Tokyo ghoul es un maquina interesante con posibles rabbit holes y que requiere de un pequeño conocimiento de criptografia o codigo morse y un poco de conocimiento de jails.</p>
+
+<p>Escaneamos el sistema :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; nmap --open --top-ports 100 10.10.179.184
+
+PORT   STATE SERVICE
+21/tcp open  ftp
+22/tcp open  ssh
+80/tcp open  http
+</code></pre></div></div>
+
+<p>Usamos los scripts de nmap para obtener las versiones y posibles accesos a estos servicios :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; nmap -sC -sV -p21,22,80 10.10.173.53
+
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxr-xr-x    3 ftp      ftp          4096 Jan 23  2021 need_Help?
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.11.26.234
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 2
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 fa:9e:38:d3:95:df:55:ea:14:c9:49:d8:0a:61:db:5e (RSA)
+|   256 ad:b7:a7:5e:36:cb:32:a0:90:90:8e:0b:98:30:8a:97 (ECDSA)
+|_  256 a2:a2:c8:14:96:c5:20:68:85:e5:41:d0:aa:53:8b:bd (ED25519)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Welcome To Tokyo goul
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>Vemos que se tiene el servicio FTP con una configuracion incorrecta lo cual nos permite autenticarnos como usuario Anonimo :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/ftp_anonymous.png" alt="image-20210903144426867" /></p>
+
+<p>Ejecutamos el archivo obtenido :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/ejecutable_message.png" alt="image-20210903144911602" /></p>
+
+<p>Obtenemos todos estos archivos y despues de haber leido todos tenemos un executable que nos pide una contraseña y una imagen que posiblemente tenga dentro mas elementos a traves de tecnicas de esteganografia, por lo que si este ejecutable nos pide la contraseña quizas al ver los strings de este descubramos algo :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/strings-binary.png" alt="image-20210903145229646" /></p>
+
+<p>Para los que conocen la serie kamishiro es el nombre de la villana por lo que tiene mucho sentido que esta sea la contraseña que se nos pide :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/respuesta_exec.png" alt="image-20210903145942431" /></p>
+
+<p>Probamos extraer los datos que se encuentran dentro de la imagen con estas credenciales :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/steghide.png" alt="image-20210903150035323" /></p>
+
+<p>Nos extrae un archivo txt cuyo contenido esta codificado :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>haha you are so smart kaneki but can you talk my code 
+
+..... .-
+....- ....-
+....- -....
+--... ----.
+....- -..
+...-- ..---
+....- -..
+...-- ...--
+....- -..
+....- ---..
+....- .-
+...-- .....
+..... ---..
+...-- ..---
+....- .
+-.... -.-.
+-.... ..---
+-.... .
+..... ..---
+-.... -.-.
+-.... ...--
+-.... --...
+...-- -..
+...-- -..
+
+
+if you can talk it allright you got my secret directory 
+</code></pre></div></div>
+
+<p>Nos dice que podemos encontrar un directorio secreto si lo hablamos bien.</p>
+
+<p>IMPORTANTE: En este punto es importante conocer un poco acerca de los tipos de codificacion que pueden haber algunos son inclusive lenguajes como el codigo morse que se aplica en este caso cabe recalcar que yo no lo descubri, le pregunte a un amigo un poco mas experto en ctfs y me indico que era codigo morse.</p>
+
+<p>Al darme cuenta que se trataba de codigo morse fui a Cyberchef y lo decodifique :</p>
+
+<h3 id="morse-">morse :</h3>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/morse.png" alt="image-20210903150809829" /></p>
+
+<h3 id="hexa-">hexa :</h3>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/hexa.png" alt="image-20210903150920092" /></p>
+
+<h3 id="base64-">Base64 :</h3>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/base64.png" alt="image-20210903151235147" /></p>
+
+<p>Y tenemos el directorio secreto pero dentro no encontramos nada por lo que seguimos escaneando y buscamos directorios dentro de este a traves de la fuerza bruta :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gobuster dir -u "http://10.10.173.53/d1r3c70ry_center/" -w /usr/share/wordlists/dirb/common.txt -t 20
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.173.53/d1r3c70ry_center/
+[+] Method:                  GET
+[+] Threads:                 20
+[+] Wordlist:                /usr/share/wordlists/dirb/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/09/03 15:28:15 Starting gobuster in directory enumeration mode
+===============================================================
+/.htpasswd            (Status: 403) [Size: 277]
+/.htaccess            (Status: 403) [Size: 277]
+/.hta                 (Status: 403) [Size: 277]
+/claim                (Status: 301) [Size: 329] [--&gt; http://10.10.173.53/d1r3c70ry_center/claim/]
+</code></pre></div></div>
+
+<p>Una vez dentro de ese directorio al ver las opciones, la interaccion de la pagina y la url :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.173.53/d1r3c70ry_center/claim/index.php?view=flower.gif
+</code></pre></div></div>
+
+<p>Nos podemos dar cuenta que esta llamando a un archivo que se encuentra de manera local lo cual puede ser traducido en una vulnerabilidad LFI por lo cual vamos a probar con unos cuantos payloads  :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://raw.githubusercontent.com/emadshanab/LFI-Payload-List/master/LFI%20payloads.txt
+</code></pre></div></div>
+
+<p>Lo probamos con Burp Intruder :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/burp-intruder.png" alt="image-20210903153650320" /></p>
+
+<p>nos quedamos con su hash y lo crackeamos usando john the ripper :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/john-ripper.png" alt="image-20210903153921692" /></p>
+
+<p>Nos conectamos por ssh con la clave y nos preparamos para escalar privilegios e intento averiguar si el usuario esta agregado al archivo SUDOERS :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/sudoers.png" alt="image-20210903160950158" /></p>
+
+<p>Solo podemos ejecutar el archivo jail.py como sudo por lo que inspeccionaremos este :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#! /usr/bin/python3
+#-*- coding:utf-8 -*-
+def main():
+    print("Hi! Welcome to my world kaneki")
+    print("========================================================================")
+    print("What ? You gonna stand like a chicken ? fight me Kaneki")
+    text = input('&gt;&gt;&gt; ')
+    for keyword in ['eval', 'exec', 'import', 'open', 'os', 'read', 'system', 'write']:
+        if keyword in text:
+            print("Do you think i will let you do this ??????")
+            return;
+    else:
+        exec(text)
+        print('No Kaneki you are so dead')
+if __name__ == "__main__":
+    main()
+</code></pre></div></div>
+
+<p>Investigando mas acerca de lo que son las jails encontre un articulo interesante que te explica como escapar de estas :</p>
+
+<p>(https://anee.me/escaping-python-jails-849c65cf306e)[https://anee.me/escaping-python-jails-849c65cf306e]</p>
+
+<p>Siguiendo los pasos del tutorial podemos ejecutar algo que a nivel de sistema nos garantize una shell por lo cual le doy permisos de suid al binario bash y con esto ya seriamos root del sistema :</p>
+
+<p><img src="/assets/images/tokyo-ghoul-thm/root.png" alt="image-20210903160359236" /></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#criptografia" class="page__taxonomy-item" rel="tag">criptografia</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#thm" class="page__taxonomy-item" rel="tag">THM</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#writeup" class="page__taxonomy-item" rel="tag">writeup</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-05-10T00:00:00-04:00">May 10, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/legacy-writeup/" class="pagination--pager" title="Legacy - Hack the Box (Español)
+">Previous</a>
+    
+    
+      <a href="/brainfuck-writeup/" class="pagination--pager" title="Brainfuck - Hack the Box (Español)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 x0pr4nt3s</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

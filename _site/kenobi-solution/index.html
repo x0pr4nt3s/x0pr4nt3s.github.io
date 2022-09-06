@@ -1,0 +1,594 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Kenobi - Tryhackme (Español) - x0pr4nt3s.io</title>
+<meta name="description" content="Solucionamos la maquina kenobi de Tryhackme, una maquina muy divertida con diferentes servicios y concatenando diferentes vulnerabilidades por cada servicio y por ultimo una escalacion de privilegios basica en linux.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="x0pr4nt3s.io">
+<meta property="og:title" content="Kenobi - Tryhackme (Español)">
+<meta property="og:url" content="http://localhost:4000/kenobi-solution/">
+
+
+  <meta property="og:description" content="Solucionamos la maquina kenobi de Tryhackme, una maquina muy divertida con diferentes servicios y concatenando diferentes vulnerabilidades por cada servicio y por ultimo una escalacion de privilegios basica en linux.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/kenobi-writeup/kenobi_logo.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-09-03T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/kenobi-solution/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "x0pr4nt3s",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="x0pr4nt3s.io Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo_name.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Kenobi - Tryhackme (Español)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/vagabond.jpg" alt="x0pr4nt3s" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">x0pr4nt3s</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Red Team member<br>Computer Scientist<br>CEH Master/ eJPT
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Lima, Peru</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:cristhopermma@gmail.com">
+            <meta itemprop="email" content="cristhopermma@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/cristhoper-heredia" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/x0pr4nt3s" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Kenobi - Tryhackme (Español)">
+    <meta itemprop="description" content="Solucionamos la maquina kenobi de Tryhackme, una maquina muy divertida con diferentes servicios y concatenando diferentes vulnerabilidades por cada servicio y por ultimo una escalacion de privilegios basica en linux.">
+    <meta itemprop="datePublished" content="September 03, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Kenobi - Tryhackme (Español)
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-09-03T00:00:00-04:00">September 03, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p>Solucionamos la maquina kenobi de Tryhackme, una maquina muy divertida con diferentes servicios y concatenando diferentes vulnerabilidades por cada servicio y por ultimo una escalacion de privilegios basica en linux.</p>
+
+<p>Escaneamos la maquina :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; nmap --open -p- 10.10.100.158
+
+PORT      STATE SERVICE
+21/tcp    open  ftp
+22/tcp    open  ssh
+80/tcp    open  http
+111/tcp   open  rpcbind
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+2049/tcp  open  nfs
+34801/tcp open  unknown
+39035/tcp open  unknown
+41037/tcp open  unknown
+57199/tcp open  unknown
+</code></pre></div></div>
+
+<p>Buscamos las versiones e informacion extra con los scripts de nmap :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; nmap -sC -sV -p21,22,80,111,139,445,2049,34801,39035,41037,57199 10.10.100.158
+
+PORT      STATE SERVICE     VERSION
+21/tcp    open  ftp         ProFTPD 1.3.5
+22/tcp    open  ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 b3:ad:83:41:49:e9:5d:16:8d:3b:0f:05:7b:e2:c0:ae (RSA)
+|   256 f8:27:7d:64:29:97:e6:f8:65:54:65:22:f7:c8:1d:8a (ECDSA)
+|_  256 5a:06:ed:eb:b6:56:7e:4c:01:dd:ea:bc:ba:fa:33:79 (ED25519)
+80/tcp    open  http        Apache httpd 2.4.18 ((Ubuntu))
+| http-robots.txt: 1 disallowed entry 
+|_/admin.html
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+111/tcp   open  rpcbind     2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  2,3,4       2049/tcp   nfs
+|   100003  2,3,4       2049/tcp6  nfs
+|   100003  2,3,4       2049/udp   nfs
+|   100003  2,3,4       2049/udp6  nfs
+|   100005  1,2,3      39735/udp6  mountd
+|   100005  1,2,3      41037/tcp   mountd
+|   100005  1,2,3      54887/tcp6  mountd
+|   100005  1,2,3      57351/udp   mountd
+|   100021  1,3,4      34801/tcp   nlockmgr
+|   100021  1,3,4      36811/tcp6  nlockmgr
+|   100021  1,3,4      47011/udp   nlockmgr
+|   100021  1,3,4      48852/udp6  nlockmgr
+|   100227  2,3         2049/tcp   nfs_acl
+|   100227  2,3         2049/tcp6  nfs_acl
+|   100227  2,3         2049/udp   nfs_acl
+|_  100227  2,3         2049/udp6  nfs_acl
+139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp   open  netbios-ssn Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+2049/tcp  open  nfs_acl     2-3 (RPC #100227)
+34801/tcp open  nlockmgr    1-4 (RPC #100021)
+39035/tcp open  mountd      1-3 (RPC #100005)
+41037/tcp open  mountd      1-3 (RPC #100005)
+57199/tcp open  mountd      1-3 (RPC #100005)
+Service Info: Host: KENOBI; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>A primera vista nos damos cuenta de un servicio nfs, un ftp con una version antigua, un http con un admin.html, y un servicio smb que puede tener recursos compartidos asi que vamos desde los primeros puertos a los mas altos :</p>
+
+<h3 id="servicio-ftp-">Servicio FTP :</h3>
+
+<p>Buscamos si esta version del servicio ftp cuenta con vulnerabilidades :</p>
+
+<p><img src="/assets/images/kenobi-writeup/searchsploit.png" alt="image-20210903185827713" /></p>
+
+<p>Por la descripcion de la vulnerabilidad y los ejemplos lo que hace la vulnerabilidad es copiar y pegar un archivo a otra direccion por lo que es una vulnerabilidad que con acceso a una ubicacion me podria servir :</p>
+
+<p><img src="/assets/images/kenobi-writeup/vuln-info.png" alt="image-20210903190216465" /></p>
+
+<h3 id="http-">HTTP :</h3>
+
+<p><img src="/assets/images/kenobi-writeup/trap.png" alt="image-20210903190447758" /></p>
+
+<p>Por lo que vi despues de enumerar el servicio no habia mucho por hacer.</p>
+
+<h3 id="nfs-">NFS :</h3>
+
+<p><img src="/assets/images/kenobi-writeup/showmount.png" alt="image-20210903190644226" /></p>
+
+<p>Al enumerar el servicio podemos ver que el directorio /var esta siendo compartido y eso nos puede servir para inspeccionarlo.</p>
+
+<h3 id="smb-">SMB :</h3>
+
+<p><img src="/assets/images/kenobi-writeup/smbclient.png" alt="image-20210903190816542" /></p>
+
+<p>Al enumerar el servicio smb vemos un recurso compartido anonymous intentamos loggearnos e inspeccionar :</p>
+
+<p><img src="/assets/images/kenobi-writeup/smbclient2.png" alt="image-20210903190932206" /></p>
+
+<p>Al ver el archivo log.txt obtenemos la ubicacion de la llave privada del usuario kenobi :</p>
+
+<p><img src="/assets/images/kenobi-writeup/log.png" alt="image-20210903191126285" /></p>
+
+<h2 id="explotacion-concatenando-vulnerabilidades">Explotacion concatenando vulnerabilidades</h2>
+
+<p>Ya con lo encontrado puedo darme cuenta de la ubicacion de las llaves de la victima, hay un directorio al que puedo acceder el cual es el directorio /var y tambien puedo copiar y pegar archivos a donde yo quiera. Creo que lo que se tiene que hacer es evidente para la vista por lo que seguimos :</p>
+
+<h3 id="copiamos-el-archivo-id_rsa-a-vartmp">Copiamos el archivo id_rsa a /var/tmp</h3>
+
+<p><img src="/assets/images/kenobi-writeup/cp_paste.png" alt="image-20210903192054987" /></p>
+
+<h3 id="compartimos-el-recurso-vartmp">Compartimos el recurso /var/tmp</h3>
+
+<p><img src="/assets/images/kenobi-writeup/mount.png" alt="image-20210903192303377" /></p>
+
+<h3 id="nos-conectamos-por-ssh">Nos conectamos por ssh</h3>
+
+<p><img src="/assets/images/kenobi-writeup/ssh_idrsa.png" alt="image-20210903192524419" /></p>
+
+<h3 id="escalamos-privilegios">Escalamos privilegios</h3>
+
+<p>Una vez dentro tenemos que escalar privilegios a root por lo cual lo primero que hago siempre es buscar archivos con permisos suid :</p>
+
+<p><img src="/assets/images/kenobi-writeup/find_suids.png" alt="image-20210903192709090" /></p>
+
+<p>Encontramos el binario menu que al ejecutarlo nos da las tres opciones y ejecuta la que le digamos :</p>
+
+<p><img src="/assets/images/kenobi-writeup/menu_bin.png" alt="image-20210903192813164" /></p>
+
+<p>Ahora lo que se me ocurre para escalar privilegios seria crear nuestro propio binario con una shell o que ejecute algo que nos de permisos de root y para hacer que ejecute nuestro binario y no el real tenemos que priorizar la ruta de donde se encuentre nuestro binario en este caso yo lo creare ahi mismo :</p>
+
+<p><img src="/assets/images/kenobi-writeup/change_path.png" alt="image-20210903193142172" /></p>
+
+<p>Procedemos a ejecutar el binario :</p>
+
+<p><img src="/assets/images/kenobi-writeup/change_bash.png" alt="image-20210903193256323" /></p>
+
+<p>Y listo ya tendriamos permisos de root :</p>
+
+<p><img src="/assets/images/kenobi-writeup/root.png" alt="image-20210903193343450" /></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#ftp" class="page__taxonomy-item" rel="tag">FTP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#nfs" class="page__taxonomy-item" rel="tag">NFS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#smb" class="page__taxonomy-item" rel="tag">SMB</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#suids" class="page__taxonomy-item" rel="tag">SUIDS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#thm" class="page__taxonomy-item" rel="tag">THM</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#writeup" class="page__taxonomy-item" rel="tag">writeup</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-09-03T00:00:00-04:00">September 03, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/AD-Enum-without-RSAT/" class="pagination--pager" title="Enumeracion de Active Directory sin herramientas RSAT
+">Previous</a>
+    
+    
+      <a href="/ejpt-exam-experience/" class="pagination--pager" title="eJPT (eLearnSecurity Junior Penetration Tester) Review
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 x0pr4nt3s</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

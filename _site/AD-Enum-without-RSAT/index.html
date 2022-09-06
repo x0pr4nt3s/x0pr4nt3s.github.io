@@ -1,0 +1,540 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Enumeracion de Active Directory sin herramientas RSAT - x0pr4nt3s.io</title>
+<meta name="description" content="Enumeracion y descubrimiento de Active Directory sin que el Antivirus u otro control de seguridad te detecte usando Powershell y las herramientas firmadas por Microsoft para gestionar Active Directory (RSAT).">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="x0pr4nt3s.io">
+<meta property="og:title" content="Enumeracion de Active Directory sin herramientas RSAT">
+<meta property="og:url" content="http://localhost:4000/AD-Enum-without-RSAT/">
+
+
+  <meta property="og:description" content="Enumeracion y descubrimiento de Active Directory sin que el Antivirus u otro control de seguridad te detecte usando Powershell y las herramientas firmadas por Microsoft para gestionar Active Directory (RSAT).">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/ad-enum-without-rsat/rsat-logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-30T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/AD-Enum-without-RSAT/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "x0pr4nt3s",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="x0pr4nt3s.io Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo_name.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Enumeracion de Active Directory sin herramientas RSAT</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/vagabond.jpg" alt="x0pr4nt3s" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">x0pr4nt3s</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Red Team member<br>Computer Scientist<br>CEH Master/ eJPT
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Lima, Peru</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:cristhopermma@gmail.com">
+            <meta itemprop="email" content="cristhopermma@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/cristhoper-heredia" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/x0pr4nt3s" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Enumeracion de Active Directory sin herramientas RSAT">
+    <meta itemprop="description" content="Enumeracion y descubrimiento de Active Directory sin que el Antivirus u otro control de seguridad te detecte usando Powershell y las herramientas firmadas por Microsoft para gestionar Active Directory (RSAT).">
+    <meta itemprop="datePublished" content="August 30, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Enumeracion de Active Directory sin herramientas RSAT
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-08-30T00:00:00-04:00">August 30, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p>Enumeracion y descubrimiento de Active Directory sin que el Antivirus u otro control de seguridad te detecte usando Powershell y las herramientas firmadas por Microsoft para gestionar Active Directory (RSAT).</p>
+
+<p><img src="/assets/images/ad-enum-without-rsat/rsat-logo.png" alt="" /></p>
+
+<h2 id="como-enumerar-active-directory-sin-que-lo-detecte-windows-defender-u-otros-antivirus-de-manera-manual-sin-herramientas-rsat">¿Como enumerar Active Directory sin que lo detecte Windows Defender u otros Antivirus de manera manual sin herramientas RSAT?</h2>
+
+<p>Hay muchas maneras de enumerar un Active Directory entre ellas estan las herramientas que pertenecen a <a href="https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors">Bloodhound</a>
+o el script hecho en Powershell de <a href="https://github.com/silverhack/voyeur">Voyeur</a> y demas. 
+El unico inconveniente es que en caso de que la maquina atacada de la cual tenemos acceso tiene un antivirus sea Windows Defender, Kaspersky, Mcafee, etc y el perfil en el que nos encontramos tiene bajos priviligios tendriamos que enumerar de manera manual nuestro Active 
+Directory.</p>
+
+<p>Para enumerar el domino de manera manual se necesita el modulo de powershell Active Directory el cual es un grupo de comandos que los administradores de Dominio usan para consultar y administrar objetos en Active Directory. El modulo de powershell Active Directory es parte de las Herramientas de administracion de servidor remoto (RSAT).</p>
+
+<p>El modulo se puede habilitar en las caracteristicas de Windows al instalar el paquete RSAT.La desventaja de ventaja de instalar este paquete es que requiere privilegios de administrador.</p>
+
+<p><img src="/assets/images/ad-enum-without-rsat/win-features-ad.jpg" alt="" /></p>
+
+<p>En caso de que no tengamos privilegios de Administrador, podemos obtener la DLL de administracion de Microsoft de Active Directory desde cualquier host que tenga el paquete RSAT instalado y copiarla en la maquina de Windows que haremos la enumeracion.</p>
+
+<p>Copie la DLL de Microsoft.ActiveDirectory.Management desde cualquier host con el paquete RSAT instalado y coloquelo en el sistema que queremos eumerar con este modulo.</p>
+
+<p>Esta es la ubicacion de la DLL :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\&lt;version&gt;
+</code></pre></div></div>
+
+<p><img src="/assets/images/ad-enum-without-rsat/dll-ad-path.jpg" alt="" /></p>
+
+<p>Una vez copiada la DLL procederemos a importarla a nuestro powershell con este comando :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Import-Module Microsoft.ActiveDirectory.Management.dll
+</code></pre></div></div>
+
+<p><img src="/assets/images/ad-enum-without-rsat/dll-ad-exec.jpg" alt="" /></p>
+
+<p>Una vez hecho ya podemos usar los comandos para la enumeracion de nuestro Active Directory</p>
+
+<h2 id="enumeracion-de-active-directory">Enumeracion de Active Directory</h2>
+
+<p>Ya con los comandos que nos proporciono la DLL podemos usar estos comandos para enumerar nuestro Active Directory estos son unos cuantos comandos para la enumeracion :</p>
+
+<ul>
+  <li>
+    <p>Get-ADDomain : El comando enumera todas las propiedades relacionadas con el dominio actual.</p>
+  </li>
+  <li>
+    <p>Get-ADDomainController : El comando enumera todos los controladores de dominio en un dominio especifico.</p>
+  </li>
+  <li>
+    <p>Get-ADUser : El comando enumera todos los usuarios del dominio actual o especificado</p>
+  </li>
+  <li>
+    <p>Get-ADComputer : El comando enumera todos los objetos de la computadora en el dominio actual o en uno especificado.</p>
+  </li>
+  <li>
+    <p>Get-ADGroup : El comando enumera todos los grupos en el domino actual o especificado.</p>
+  </li>
+  <li>
+    <p>Get-ADGroupMember : Muestra una lista de todos los miembros de un grupo especifico.</p>
+  </li>
+</ul>
+
+<p>Acompañado a estos comandos existen varios parametros que podemos usar para especificar nuestra enumeracion.</p>
+
+<p>Ejemplos :</p>
+
+<p><img src="/assets/images/ad-enum-without-rsat/ad-enum-user-properties.jpg" alt="" /></p>
+
+<p><img src="/assets/images/ad-enum-without-rsat/ad-enum-user-filters.jpg" alt="" /></p>
+
+<h2 id="recursos-para-una-enumeracion-mas-completa">Recursos para una enumeracion mas completa</h2>
+
+<p>Al realizar la enumeracion del Active Directory importando solo el modulo anterior las Propiedades de los objetos que enumeramos estan limitadas ya que esta dll se apoya de otros recursos, este es un ejemplo de la enumeracion que podemos obtener importando solo este modulo :</p>
+
+<p><img src="/assets/images/ad-enum-without-rsat/propiedades_low_computer.jpg" alt="" /></p>
+
+<p>Estamos seleccionando que queremos ver todas las propiedades pero aun asi hay informacion que quiero obtener y aun no se muestra como por ejemplo ipv4,.</p>
+
+<p>Para obtener estos recursos de Active Directory e importarlos a la powershell necesitamos obtenerlos de un Host con estas herramientas instaladas y obtenerlos de esta ruta :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\System32\WindowsPowershell\v1.0\Modules\ActiveDirectory\
+</code></pre></div></div>
+
+<p><img src="/assets/images/ad-enum-without-rsat/recursos-ad-rsat-path.jpg" alt="" /></p>
+
+<p>Copiamos todo el contenido y lo pegamos dentro de nuestro Host, luego importamos solamente el Modulo ActiveDirectory.psd1</p>
+
+<p><img src="/assets/images/ad-enum-without-rsat/import-recursos-ad-rsat.jpg" alt="" /></p>
+
+<p>La cantidad de propiedades obtenidas con el mismo comando sera mayor a la anterior ejecucion :</p>
+
+<p><img src="/assets/images/ad-enum-without-rsat/computer-properties-full.jpg" alt="" /></p>
+
+<p>Una vez hecho esto podra ver mas propiedades en su enumeracion lo que le permitira una enumeracion mucho mas completa.</p>
+
+<p>Los recursos y la DLL de ActiveDirectoryManagement.dll los puedes encontrar <a href="https://github.com/x0pr4nt3s/Tools_enum_AD_without-RSAT">aqui</a>.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">active-directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#active-directory" class="page__taxonomy-item" rel="tag">active-directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#enumeracion" class="page__taxonomy-item" rel="tag">enumeracion</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-08-30T00:00:00-04:00">August 30, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/brainfuck-writeup/" class="pagination--pager" title="Brainfuck - Hack the Box (Español)
+">Previous</a>
+    
+    
+      <a href="/kenobi-solution/" class="pagination--pager" title="Kenobi - Tryhackme (Español)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 x0pr4nt3s</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
