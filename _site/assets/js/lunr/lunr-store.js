@@ -33,4 +33,9 @@ var store = [{
         "excerpt":"Muchos dicen que este certificado no es lo suficientemente retador como para darlo pero es una buena forma de introducirse a este mundo de la ciberseguridad de una manera estructurada y con unos laboratorios con buen material, en mi opinion es importante la introduccion que puede tener uno en el...","categories": ["certificados","review"],
         "tags": ["review"],
         "url": "http://localhost:4000/ejpt-exam-experience/",
-        "teaser":"http://localhost:4000/assets/images/about/ejpt.png"}]
+        "teaser":"http://localhost:4000/assets/images/about/ejpt.png"},{
+        "title": "CRTP (Certified Red Team Professional) Review",
+        "excerpt":"Según el contenido del CRTP, esta certificación es apta para principiantes y estoy de acuerdo en que es una buena opción para aquellos que deseen iniciarse en Active Directory. Sin embargo, es importante tener en cuenta que se requiere un conocimiento mínimo previo debido a que esta es una certificación...","categories": ["certificados","review"],
+        "tags": ["review"],
+        "url": "http://localhost:4000/crtp-exeperience/",
+        "teaser":"http://localhost:4000/assets/images/crtp/CRTP-image.png"}]
