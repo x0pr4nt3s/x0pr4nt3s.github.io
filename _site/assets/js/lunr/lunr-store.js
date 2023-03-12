@@ -1,9 +1,4 @@
 var store = [{
-        "title": "TCP bind shellcode",
-        "excerpt":"A bind shellcode listens on a socket, waiting for a connection to be made to the server then executes arbitrary code, typically spawning shell for the connecting user. This post demonstrates a simple TCP bind shellcode that executes a shell. The shellcode does the following: Creates a socket Binds the...","categories": ["slae","infosec"],
-        "tags": ["slae","assembly","tcp bind shellcode"],
-        "url": "http://localhost:4000/tcp-bind-shellcode/",
-        "teaser":"http://localhost:4000/assets/images/slae32.png"},{
         "title": "Lame - Hack the Box (Español)",
         "excerpt":"Esta es una de las maquinas mas sencillas de la lista de TJNULL para la preparacion OSCP, en este desafio nos encontramos con uno que otro servicio que parecen vulnerables mas el servicio a explotar es SMB debido a una vulnerabilidad que permite ejecutar codigo de manera remota con privilegios...","categories": ["writeup"],
         "tags": ["HTB","SMB vulnerability"],
